@@ -3,7 +3,6 @@ import "./DayListItem.scss";
 import classNames from "classnames";
 
 export default function DayListItem(props) {
-
   function formatSpots(props) {
     if (props.spots >= 2) {
       return `${props.spots} spots remaining`
