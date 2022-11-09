@@ -40,6 +40,7 @@ export default function Application(props) {
     );
   });
 
+  
   function bookInterview(id, interview) {
     const appointment = {
       ...state.appointments[id],
@@ -62,6 +63,10 @@ export default function Application(props) {
     .catch((err) => console.log(err));
   }
 
+  const cancelInterview = () => {
+
+  }
+  
   useEffect(() => {
     Promise.all([
       axios.get("/api/days"),

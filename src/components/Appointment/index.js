@@ -4,6 +4,7 @@ import Header from "./Header";
 import Show from "./Show";
 import Empty from "./Empty";
 import Form from "./Form";
+import Status from "./Status";
 import useVisualMode from "hooks/useVisualMode";
 
 export default function Appointment(props) {
@@ -24,7 +25,7 @@ export default function Appointment(props) {
     };
     transition(SAVING)
     props.bookInterview(props.id, interview)
-    transition(SHOW)
+    .then(() =>  transition(SHOW))
 
     console.log("props.id from bookInt", props.id);
     console.log("interview from bookInt", interview);
@@ -41,7 +42,7 @@ export default function Appointment(props) {
           interviewer={props.interview.interviewer}
         />
       )}
-      {mode === SAVING}
+      {mode === SAVING && <Status message="Saving..."/>}
       {mode === CREATE && (
         <Form interviewers={props.interviewers} onCancel={back} onSave={save} />
       )}
