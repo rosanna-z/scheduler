@@ -18,8 +18,12 @@ export default function Form(props) {
     props.onCancel()
   }
 
-  function save() {
+  function handleSave() {
+    console.log("props.onSave from handleSave", props.onSave);
+    console.log("student from handleSave", student);
+    console.log("interviewer from handleSave", interviewer);
     props.onSave(student, interviewer)
+
   }
 
   return (
@@ -45,7 +49,7 @@ export default function Form(props) {
   <section className="appointment__card-right">
     <section className="appointment__actions">
       <Button danger onClick={cancel}>Cancel</Button>
-      <Button confirm onClick={() => {save()}}>Save</Button>
+      <Button confirm onClick={() => {handleSave()}}>Save</Button>
     </section>
   </section>
 </main>

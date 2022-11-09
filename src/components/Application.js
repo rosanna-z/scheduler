@@ -20,7 +20,7 @@ export default function Application(props) {
   const setDay = (day) => setState((prev) => ({ ...prev, day }));
 
   const appointments = getAppointmentsForDay(state, state.day);
-
+  
   const schedule = appointments.map((appointment) => {
     const interview = getInterview(state, appointment.interview);
     return (
@@ -29,7 +29,8 @@ export default function Application(props) {
         id={appointment.id}
         time={appointment.time}
         interview={interview}
-        interviewers={getInterviewersForDay}
+        interviewers={getInterviewersForDay(state, state.day)}
+        bookInterview={bookInterview}
       />
 
       // Can also be written like below:
@@ -39,26 +40,27 @@ export default function Application(props) {
     );
   });
 
-  // function bookInterview(id, interview) {
-  //   const appointment = {
-  //     ...state.appointments[id],
-  //     interview: { ...interview }
-  //   };
-  //   const appointments = {
-  //     ...state.appointments,
-  //     [id]: appointment
-  //   };
-  //   setState((prev => ({...prev, appointment})))
-  //   console.log(id, interview);
-  // }
-
-  // function save(name, interviewer) {
-  //   const interview = {
-  //     student: name,
-  //     interviewer
-  //   }
-  // }
-
+  function bookInterview(id, interview) {
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+    console.log("id===>", id, "interview", interview);
+    // makes a request to API to update with new interview
+    return axios
+    .put(`/api/appointments/${id}`, appointment)
+    .then((res) => {
+      setState({
+        ...state,
+        appointments,
+      });
+    })
+    .catch((err) => console.log(err));
+  }
 
   useEffect(() => {
     Promise.all([
@@ -72,7 +74,7 @@ export default function Application(props) {
         appointments: all[1].data,
         interviewers: all[2].data,
       }));
-      console.log(all[0].data, all[1].data, all[2].data);
+      // console.log(all[0].data, all[1].data, all[2].data);
     });
   }, []);
 
@@ -95,7 +97,6 @@ export default function Application(props) {
         />{" "}
       </section>
       <section className="schedule">
-        {appointments}
         {schedule}
         <Appointment key="last" time="5pm" />
       </section>
