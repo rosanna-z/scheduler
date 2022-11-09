@@ -3,7 +3,11 @@ import "components/Application.scss";
 import DayList from "./DayList";
 import Appointment from "./Appointment";
 import axios from "axios";
-import { getAppointmentsForDay, getInterview } from "helpers/selectors";
+import {
+  getAppointmentsForDay,
+  getInterview,
+  getInterviewersForDay,
+} from "helpers/selectors";
 
 export default function Application(props) {
   const [state, setState] = useState({
@@ -12,9 +16,9 @@ export default function Application(props) {
     appointments: {},
     interviewers: {},
   });
-  
+
   const setDay = (day) => setState((prev) => ({ ...prev, day }));
-  
+
   const appointments = getAppointmentsForDay(state, state.day);
 
   const schedule = appointments.map((appointment) => {
@@ -25,6 +29,7 @@ export default function Application(props) {
         id={appointment.id}
         time={appointment.time}
         interview={interview}
+        interviewers={getInterviewersForDay}
       />
 
       // Can also be written like below:
@@ -33,6 +38,27 @@ export default function Application(props) {
       {...appointment} /> */
     );
   });
+
+  // function bookInterview(id, interview) {
+  //   const appointment = {
+  //     ...state.appointments[id],
+  //     interview: { ...interview }
+  //   };
+  //   const appointments = {
+  //     ...state.appointments,
+  //     [id]: appointment
+  //   };
+  //   setState((prev => ({...prev, appointment})))
+  //   console.log(id, interview);
+  // }
+
+  // function save(name, interviewer) {
+  //   const interview = {
+  //     student: name,
+  //     interviewer
+  //   }
+  // }
+
 
   useEffect(() => {
     Promise.all([
