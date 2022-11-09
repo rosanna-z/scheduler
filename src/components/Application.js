@@ -18,34 +18,14 @@ export default function Application(props) {
   });
   
   const setDay = (day) => setState((prev) => ({ ...prev, day }));
-
-  const appointments = getAppointmentsForDay(state, state.day);
-  
-  const cancelInterview = (id) => {
-    const appointment = {
-      ...state.appointments[id],
-      interview: null
-    };
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment
-    };
-    return axios
-    .delete(`/api/appointments/${id}`)
-    .then((res) => {
-      setState({
-        ...state, 
-        appointments,
-      })
-    })
-    .catch((err) => console.log(err));
-  }
   
   function bookInterview(id, interview) {
+    // replace current value of interview key with new value
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
     };
+    // replace existing record with matching id
     const appointments = {
       ...state.appointments,
       [id]: appointment
@@ -62,23 +42,46 @@ export default function Application(props) {
     })
     .catch((err) => console.log(err));
   }
+
+  function cancelInterview(id) {
+    // set current value of interview key to null
+    const appointment = {
+      ...state.appointments[id],
+      interview: null
+    };
+    // replace existing record with matching id
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment,
+    };
+    // make API request to delete appointment 
+    return axios
+    .delete(`/api/appointments/${id}`)
+    .then((res) => {
+      setState({
+        ...state, 
+        appointments,
+      })
+    })
+    .catch((err) => console.log(err));
+  };
   
+  const appointments = getAppointmentsForDay(state, state.day);
+  const interviewers = getInterviewersForDay(state, state.day)
   const schedule = appointments.map((appointment) => {
     const interview = getInterview(state, appointment.interview);
     return (
       <Appointment
-        key={appointment.id}
+      key={appointment.id}
         id={appointment.id}
         time={appointment.time}
         interview={interview}
-        interviewers={getInterviewersForDay(state, state.day)}
+        interviewers={interviewers}
         bookInterview={bookInterview}
         cancelInterview={cancelInterview}
       />
     );
   });
-
-
   
   useEffect(() => {
     Promise.all([
