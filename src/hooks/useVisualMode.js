@@ -20,9 +20,9 @@ export default function useVisualMode(initial) {
   const back = () => {
     if (history.length > 1) {
       setHistory((prev) => {
-        const newHistory = [...prev]
+        const newHistory = [...prev].slice(0, -1);
         // gets the last item in the array
-        setMode(newHistory[newHistory.length(-1)]);
+        setMode(newHistory[newHistory.length-1]);
         return newHistory;
       });
     }

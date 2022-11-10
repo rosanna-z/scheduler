@@ -40,7 +40,6 @@ export default function Application(props) {
         appointments,
       });
     })
-    .catch((err) => console.log(err));
   }
 
   function cancelInterview(id) {
@@ -63,7 +62,6 @@ export default function Application(props) {
         appointments,
       })
     })
-    .catch((err) => console.log(err));
   };
   
   const appointments = getAppointmentsForDay(state, state.day);
