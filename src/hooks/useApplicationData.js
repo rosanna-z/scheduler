@@ -24,14 +24,7 @@ export default function useApplicationData() {
         appointments: all[1].data,
         interviewers: all[2].data,
       }));
-      console.log(
-        "days",
-        all[0].data,
-        "appointments",
-        all[1].data,
-        "interviewers",
-        all[2].data
-      );
+      // console.log("days", all[0].data, "appointments", all[1].data, "interviewers", all[2].data);
     });
   }, []);
 
