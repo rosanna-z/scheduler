@@ -32,21 +32,21 @@ export default function Appointment(props) {
 
     transition(SAVING, true);
     props
-    .bookInterview(props.id, interview)
-    .then(() => transition(SHOW))
-    .catch((err) => transition(ERROR_SAVE, true));
+      .bookInterview(props.id, interview)
+      .then(() => transition(SHOW))
+      .catch((err) => transition(ERROR_SAVE, true));
   }
 
   function cancel(id) {
     transition(DELETING, true);
     props
-    .cancelInterview(props.id)
-    .then(() => transition(EMPTY))
-    .catch((err) => transition(ERROR_DELETE, true));
+      .cancelInterview(props.id)
+      .then(() => transition(EMPTY))
+      .catch((err) => transition(ERROR_DELETE, true));
   }
 
   return (
-    <article className="appointment" data-testid="appointment" >
+    <article className="appointment" data-testid="appointment">
       <Header time={props.time} />
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
       {mode === SHOW && props.interview && (
@@ -78,8 +78,12 @@ export default function Appointment(props) {
           onSave={save}
         />
       )}
-      {mode === ERROR_SAVE && <Error onClose={back} message="Error saving appointment"/> }
-      {mode === ERROR_DELETE && <Error onClose={back} message="Error deleting appointment"/> }
+      {mode === ERROR_SAVE && (
+        <Error onClose={back} message="Error saving appointment" />
+      )}
+      {mode === ERROR_DELETE && (
+        <Error onClose={back} message="Error deleting appointment" />
+      )}
     </article>
   );
 }
