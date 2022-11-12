@@ -1,4 +1,5 @@
 # Interview Scheduler
+A single page client application that uses React view library where a user can book, edit, or cancel interview appointments.
 
 ## Setup
 
