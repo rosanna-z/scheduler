@@ -130,9 +130,8 @@ storiesOf("InterviewerList", module)
     <InterviewerList interviewers={interviewers} value={3} />
   ))
   .add("Clickable", () => (
-    <InterviewerListItem
-      name={interviewer.name}
-      avatar={interviewer.avatar}
+    <InterviewerList
+      interviewers={interviewers}
       onChange={action("setInterviewer")}
     />
   ));

@@ -1,3 +1,4 @@
+// Gets the appointments for the day from the database
 export function getAppointmentsForDay(state, day) {
   let foundDay;
   const results = [];
@@ -22,6 +23,7 @@ export function getAppointmentsForDay(state, day) {
   // return foundDay.appointments.map(appointmentId => state.appointments[appointmentId])
 }
 
+// Creates an interview object (for the Appointment component)
 export function getInterview(state, interview) {
   if (!interview) {
     return null;
@@ -34,6 +36,7 @@ export function getInterview(state, interview) {
   return interviewObj;
 }
 
+// Gets the interiewers for the day from the database
 export function getInterviewersForDay(state, day) {
   let interviewersArr = [];
   

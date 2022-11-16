@@ -36,12 +36,12 @@ describe("Application", () => {
 
     // 2. Wait until the text "Archie Cohen" is displayed.
     await waitForElement(() => getByText(container, "Archie Cohen"));
-    // console.log("container-->>", prettyDOM(container));
+    // Use prettyDOM to view the data so that it is easier to read
+    // console.log("container-->", prettyDOM(container));
 
     // 3. Click the "Add" button on the first empty appointment.
     const appointments = getAllByTestId(container, "appointment");
     const appointment = appointments[0];
-    // console.log("appointments", prettyDOM(appointments));
     fireEvent.click(getByAltText(appointment, "Add"));
 
     // 4. Enter the name "Lydia Miller-Jones" into the input with the placeholder "Enter Student Name".
@@ -54,7 +54,6 @@ describe("Application", () => {
 
     // 6. Click the "Save" button on that same appointment.
     fireEvent.click(getByText(appointment, "Save"));
-    // console.log(prettyDOM(appointment));
 
     // 7. Check that the element with the text "Saving" is displayed.
     expect(getByText(appointment, "Saving")).toBeInTheDocument();
@@ -66,7 +65,6 @@ describe("Application", () => {
     const day = getAllByTestId(container, "day").find((day) =>
       queryByText(day, "Monday")
     );
-    // console.log(prettyDOM(day));
     expect(getByText(day, "no spots remaining")).toBeInTheDocument();
   });
 
